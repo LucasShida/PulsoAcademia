@@ -1,0 +1,18 @@
+@model Aluno
+@{
+    ViewData["Title"] = "Excluir matrícula";
+}
+
+<div class="form-panel confirm-panel">
+    <h1 class="h2 mb-3">Excluir esta matrícula?</h1>
+    <p>
+        Você vai remover o cadastro de <strong>@Model.NomeCompleto</strong>
+        (plano <plano-badge valor="@Model.Plano"></plano-badge>, modalidade <strong>@Model.Modalidade</strong>).
+        Essa ação não pode ser desfeita.
+    </p>
+
+    <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="d-flex gap-2 mt-4">
+        <button type="submit" class="btn btn-perigo">Sim, excluir matrícula</button>
+        <a class="btn btn-pulso-outline" asp-action="Index">Manter matrícula</a>
+    </form>
+</div>

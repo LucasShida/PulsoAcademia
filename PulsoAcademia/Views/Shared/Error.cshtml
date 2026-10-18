@@ -1,0 +1,12 @@
+@model ErrorViewModel
+@{
+    ViewData["Title"] = "Erro";
+}
+
+<h1 class="h3">Algo deu errado.</h1>
+<p>Não foi possível concluir a ação. Volte para o <a asp-controller="Home" asp-action="Index">painel</a> e tente novamente.</p>
+
+@if (Model.ShowRequestId)
+{
+    <p class="text-muted small">Código da requisição: <code>@Model.RequestId</code></p>
+}

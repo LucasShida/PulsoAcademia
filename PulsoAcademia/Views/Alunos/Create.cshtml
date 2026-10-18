@@ -1,0 +1,21 @@
+@model Aluno
+@{
+    ViewData["Title"] = "Matricular aluno";
+}
+
+<div class="form-panel">
+    <h1 class="h2 mb-4">Matricular aluno</h1>
+
+    <form asp-action="Create" method="post">
+        <partial name="_Form" model="Model" />
+
+        <div class="d-flex gap-2 mt-4">
+            <button type="submit" class="btn btn-pulso">Salvar matrícula</button>
+            <a class="btn btn-pulso-outline" asp-action="Index">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

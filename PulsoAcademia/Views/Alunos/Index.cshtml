@@ -1,0 +1,92 @@
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model List<Aluno>
+@{
+    ViewData["Title"] = "Alunos";
+    string? busca = ViewBag.Busca as string;
+    Plano? planoSelecionado = ViewBag.PlanoSelecionado as Plano?;
+    var planos = new SelectList(
+        Html.GetEnumSelectList<Plano>(), "Value", "Text",
+        planoSelecionado.HasValue ? ((int)planoSelecionado.Value).ToString() : null);
+    bool filtrando = !string.IsNullOrWhiteSpace(busca) || planoSelecionado.HasValue;
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+    <h1 class="h2 mb-0">Alunos</h1>
+    <a class="btn btn-pulso" asp-action="Create">Matricular aluno</a>
+</div>
+
+<form method="get" asp-action="Index" class="search-bar row g-2 mb-4">
+    <div class="col-md-6">
+        <label for="busca" class="form-label">Buscar por nome ou e-mail</label>
+        <input type="search" id="busca" name="busca" value="@busca" class="form-control"
+               placeholder="Ex.: Mariana ou rafael@email.com" />
+    </div>
+    <div class="col-md-4">
+        <label for="plano" class="form-label">Plano</label>
+        <select id="plano" name="plano" class="form-select" asp-items="planos">
+            <option value="">Todos os planos</option>
+        </select>
+    </div>
+    <div class="col-md-2 d-flex align-items-end gap-2">
+        <button type="submit" class="btn btn-pulso flex-grow-1">Buscar</button>
+        @if (filtrando)
+        {
+            <a class="btn btn-pulso-outline" asp-action="Index">Limpar</a>
+        }
+    </div>
+</form>
+
+@if (Model.Count == 0)
+{
+    <div class="empty-state">
+        @if (filtrando)
+        {
+            <p class="mb-2">Nenhum aluno corresponde à busca.</p>
+            <a asp-action="Index">Limpar filtros</a>
+        }
+        else
+        {
+            <p class="mb-2">Nenhum aluno cadastrado ainda.</p>
+            <a asp-action="Create">Matricular o primeiro aluno</a>
+        }
+    </div>
+}
+else
+{
+    <p class="text-muted small">@Model.Count resultado(s)</p>
+    <div class="table-responsive">
+        <table class="table align-middle tabela-alunos">
+            <thead>
+                <tr>
+                    <th>Aluno</th>
+                    <th>Modalidade</th>
+                    <th>Plano</th>
+                    <th class="text-end">Mensalidade</th>
+                    <th>Matrícula</th>
+                    <th>Situação</th>
+                    <th><span class="visually-hidden">Ações</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var aluno in Model)
+                {
+                    <tr>
+                        <td>
+                            <a class="aluno-nome" asp-action="Details" asp-route-id="@aluno.Id">@aluno.NomeCompleto</a>
+                            <div class="text-muted small">@aluno.Email</div>
+                        </td>
+                        <td>@aluno.Modalidade</td>
+                        <td><plano-badge valor="@aluno.Plano"></plano-badge></td>
+                        <td class="text-end"><valor-brl valor="aluno.Mensalidade"></valor-brl></td>
+                        <td><data-br valor="aluno.DataMatricula" curta="true"></data-br></td>
+                        <td><status-matricula ativo="aluno.Ativo"></status-matricula></td>
+                        <td class="text-end text-nowrap">
+                            <a class="btn btn-sm btn-pulso-outline" asp-action="Edit" asp-route-id="@aluno.Id">Editar</a>
+                            <a class="btn btn-sm btn-perigo" asp-action="Delete" asp-route-id="@aluno.Id">Excluir</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

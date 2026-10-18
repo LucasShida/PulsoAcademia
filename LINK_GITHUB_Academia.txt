@@ -1,0 +1,9 @@
+Checkpoint 2 - ASP.NET Core MVC - Pulso Academia
+
+Integrantes:
+- Nome completo 1 - RM
+- Nome completo 2 - RM
+- Nome completo 3 - RM
+
+Link do repositório no GitHub (com README):
+https://github.com/SEU-USUARIO/PulsoAcademia

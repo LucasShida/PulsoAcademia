@@ -1,0 +1,55 @@
+@{
+    ViewData["Title"] = "Painel";
+    var recentes = (List<Aluno>)ViewBag.Recentes;
+}
+
+<section class="hero">
+    <div class="hero-text">
+        <h1>Alunos, planos e mensalidades sob controle.</h1>
+        <p class="lead">
+            Matricule novos alunos, acompanhe quem está ativo e encontre qualquer cadastro
+            em segundos pela busca.
+        </p>
+        <div class="d-flex flex-wrap gap-2">
+            <a class="btn btn-pulso" asp-controller="Alunos" asp-action="Create">Matricular aluno</a>
+            <a class="btn btn-pulso-outline" asp-controller="Alunos" asp-action="Index">Ver alunos</a>
+        </div>
+    </div>
+    <dl class="hero-stats">
+        <div>
+            <dd>@ViewBag.Total</dd>
+            <dt>alunos cadastrados</dt>
+        </div>
+        <div>
+            <dd>@ViewBag.Ativos</dd>
+            <dt>matrículas ativas</dt>
+        </div>
+        <div>
+            <dd class="hero-valor"><valor-brl valor="(decimal)ViewBag.Receita"></valor-brl></dd>
+            <dt>em mensalidades ativas</dt>
+        </div>
+    </dl>
+</section>
+
+<section class="mt-5">
+    <h2 class="h4 mb-3">Últimas matrículas</h2>
+    @if (recentes.Count == 0)
+    {
+        <p class="text-muted">Nenhum aluno cadastrado. <a asp-controller="Alunos" asp-action="Create">Matricule o primeiro aluno.</a></p>
+    }
+    else
+    {
+        <ul class="recent-list">
+            @foreach (var a in recentes)
+            {
+                <li>
+                    <div>
+                        <a class="recent-name" asp-controller="Alunos" asp-action="Details" asp-route-id="@a.Id">@a.NomeCompleto</a>
+                        <div class="text-muted small">@a.Modalidade &ndash; matriculado em <data-br valor="a.DataMatricula" curta="true"></data-br></div>
+                    </div>
+                    <plano-badge valor="@a.Plano"></plano-badge>
+                </li>
+            }
+        </ul>
+    }
+</section>

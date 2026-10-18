@@ -1,9 +1,9 @@
 Checkpoint 2 - ASP.NET Core MVC - Pulso Academia
 
 Integrantes:
-- Nome completo 1 - RM
-- Nome completo 2 - RM
-- Nome completo 3 - RM
+Lucas Shida Rodrigues da Costa RM568194
+Matheus Guimarães Rosa RM567912
+Pedro Henrique Pinheiro Falchi RM566967
 
 Link do repositório no GitHub (com README):
-https://github.com/SEU-USUARIO/PulsoAcademia
+https://github.com/LucasShida/PulsoAcademia.git
